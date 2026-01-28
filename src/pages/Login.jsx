@@ -7,6 +7,11 @@ const Login = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
+
+    if(!email || !password){
+      alert("All fields are required");
+      return;
+    }
     console.log({email,password});
   }
   return (
