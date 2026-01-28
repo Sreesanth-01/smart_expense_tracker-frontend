@@ -10,15 +10,16 @@ const Login = () => {
     console.log({email,password});
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <div className='min-h-screen flex items-center justify center'>
+      <form onSubmit={handleSubmit}
+        className='w-full max-w-sm p-6 border rounded-lg shadow-md flex flex-col gap-6'>
+        <h1 className='text-2xl font-bold text-center'>Login</h1>
 
         <Input label="Email" type='email' value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="you@example.com" />
 
         <Input label="Password" type='password' value={password} onChange={(e)=> setPassword(e.target.value)} placeholder="••••••••" />
 
-        <button type='submit'>Login</button>
+        <button type='submit' className='bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700'>Login</button>
 
       </form>
     </div>

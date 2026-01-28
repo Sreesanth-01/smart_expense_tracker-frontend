@@ -6,7 +6,7 @@ import AppRoutes from './routes/AppRoutes'
 function App() {
 
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center'>
       <Navbar />
       <AppRoutes />
     </div>
