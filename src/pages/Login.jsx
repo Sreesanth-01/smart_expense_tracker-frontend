@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Input from '../components/common/Input';
+import { loginUser } from '../api/authApi';
 
 const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
     e.preventDefault();
 
     if(!email || !password){
@@ -13,6 +14,13 @@ const Login = () => {
       return;
     }
     console.log({email,password});
+
+    try {
+      const res = await loginUser({email,password});
+      console.log("Login success: ",res.data);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
   }
   return (
     <div className='min-h-screen flex items-center justify center'>

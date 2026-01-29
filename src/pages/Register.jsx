@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Input from '../components/common/Input';
-
+import { registerUser } from '../api/authApi';
 const Register = () => {
   const [form,setForm] = useState({
     name:"",
@@ -12,7 +12,7 @@ const Register = () => {
     setForm({...form,[e.target.name]:e.target.value});
   }
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
     e.preventDefault();
 
     if(!form.name || !form.email || !form.password){
@@ -20,6 +20,13 @@ const Register = () => {
       return;
     }
     console.log(form);
+
+    try {
+      const res = await registerUser(form);
+      console.log("Registered: ",res.data);
+    } catch (err) {
+      console.error(err.response ?.data || err.message);
+    }
   }
   return (
     <div className='min-h-screen flex items-center justify-center'>
