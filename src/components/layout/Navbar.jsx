@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
 const Navbar = () => {
-  // const {logout} = useContext(AuthContext);
+  const {logout} = useContext(AuthContext);
   return (
     <nav className='flex gap-4 p-4 bg-gray-800 text-white'>
       <Link to="/dashboard">Dashboard</Link>
@@ -11,7 +11,7 @@ const Navbar = () => {
       <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
 
-      {/* <button onClick={logout}>Logout</button> */}
+      <button onClick={logout}>Logout</button>
     </nav>
   )
 }
