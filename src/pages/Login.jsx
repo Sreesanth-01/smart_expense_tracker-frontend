@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Input from '../components/common/Input';
 import { loginUser } from '../api/authApi';
+import AuthContext from '../context/AuthContext';
 
 const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
+
+  const {login} = useContext(AuthContext);
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
@@ -17,13 +20,17 @@ const Login = () => {
 
     try {
       const res = await loginUser({email,password});
-      console.log("Login success: ",res.data);
+      
+      login(res.data.token);
+
+      console.log("token",res.data.token);
     } catch (err) {
       console.error(err.response?.data || err.message);
+      alert("Invalid credentials");
     }
   }
   return (
-    <div className='min-h-screen flex items-center justify center'>
+    <div className='min-h-screen flex items-center justify-center'>
       <form onSubmit={handleSubmit}
         className='w-full max-w-sm p-6 border rounded-lg shadow-md flex flex-col gap-6'>
         <h1 className='text-2xl font-bold text-center'>Login</h1>
