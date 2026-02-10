@@ -15,9 +15,9 @@ const Expenses = () => {
   const fetchExpenses = async() =>{
     try {
       const res = await getExpenses();
-      setExpenses(res.data);
+      setExpenses(res.data.data.content);
     } catch (err) {
-      console.error(err);
+      console.error("Failed to fetch expenses", err.message);
     }
   }
 

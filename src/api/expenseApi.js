@@ -1,7 +1,7 @@
 import api from "./axios"
 
-export const getExpenses = () =>{
-    api.get("/expenses");
+export const getExpenses = async() =>{
+    return api.get("/expenses");
 }
 
 export const addExpense = async(data) =>{
