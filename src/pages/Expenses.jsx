@@ -15,6 +15,8 @@ const Expenses = () => {
   const fetchExpenses = async() =>{
     try {
       const res = await getExpenses();
+      console.log("Axios Full Response:", res); // <--- LOOK AT THIS IN CONSOLE
+      console.log("Your API Data:", res.data.data);
       setExpenses(res.data.data.content);
     } catch (err) {
       console.error("Failed to fetch expenses", err.message);
@@ -59,7 +61,7 @@ const Expenses = () => {
       </form>
 
       <ul>
-        {expenses.map((exp)=>{
+        {expenses.map((exp)=>(
           <li key={exp.id}>
             <div>
               <p> ${exp.amount} - {exp.category} </p>
@@ -67,7 +69,7 @@ const Expenses = () => {
             </div>
             <button onClick={()=>handleDelete(exp.id)}>Delete</button>
           </li>
-        })}
+        ))}
       </ul>
       
     </div>
