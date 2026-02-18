@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addExpense, deleteExpense, getExpenses, updateExpenese } from '../api/expenseApi';
+import { addExpense, deleteExpense, getExpenses, updateExpense } from '../api/expenseApi';
 import Input from '../components/common/Input';
 
 const Expenses = () => {
@@ -30,11 +30,28 @@ const Expenses = () => {
 
     if(updateId){
       try {
-        await updateExpenese(updateId,{amount,category,description});
+        const updatedExpense = {
+          id:updateId,
+          amount,
+          category,
+          description
+        }
+
+
+        await updateExpense(updateId,updatedExpense);
         console.log("Update successful",{amount,category,description});
-        setAmount("");
+
+        setExpenses((prevExpenses) =>
+          prevExpenses.map((exp) =>
+            Number(exp.id) === Number(updateId) ? { ...exp, ...updatedExpense } : exp
+        
+          )
+        );
+
+        setAmount(0.0);
         setCategory("");
         setDescription("");
+        setUpdateId(null);
         // fetchExpenses();
       } catch (err) {
         console.error(err);
@@ -48,7 +65,7 @@ const Expenses = () => {
       try {
         console.log("adding expense:",{amount,category,description});
         await addExpense({amount,category,description});
-        setAmount("");
+        setAmount(0.0);
         setCategory("");
         setDescription("");
         fetchExpenses();
@@ -69,9 +86,9 @@ const Expenses = () => {
   }
 
   const handleEdit = (expense) =>{
-    setAmount(expense.amount);
-    setCategory(expense.category);
-    setDescription(expense.description);
+    setAmount(expense.amount ?? 0.0);
+    setCategory(expense.category ?? "");
+    setDescription(expense.description ?? "");
     setUpdateId(expense.id);
   }
   
@@ -92,7 +109,7 @@ const Expenses = () => {
               <p className='font-semibold'> ${exp.amount} - {exp.category} </p>
               <p className='text-sm text-gray-500'> {exp.description} </p>
             </div>
-            <button className='text-blue-600' onClick={()=>handleEdit(exp.id)}>Edit</button>
+            <button className='text-blue-600' onClick={()=>handleEdit(exp)}>Edit</button>
             <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
           </li>
         ))}
