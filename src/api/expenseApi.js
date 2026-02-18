@@ -12,3 +12,7 @@ export const deleteExpense = async(id) =>(
     api.delete(`/expenses/${id}`)
 )
 
+export const updateExpenese = async(id,data) =>{
+    api.put(`/expenses/${id}`,data)
+}
+

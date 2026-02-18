@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addExpense, deleteExpense, getExpenses } from '../api/expenseApi';
+import { addExpense, deleteExpense, getExpenses, updateExpenese } from '../api/expenseApi';
 import Input from '../components/common/Input';
 
 const Expenses = () => {
@@ -7,6 +7,8 @@ const Expenses = () => {
   const [amount,setAmount] = useState(0.0);
   const [category,setCategory] = useState("");
   const [description,setDescription] = useState("");
+
+  const [updateId, setUpdateId] = useState(null);
 
   useEffect(()=>{
     fetchExpenses();
@@ -23,21 +25,36 @@ const Expenses = () => {
     }
   }
 
-  const handleAddExpense = async(e) =>{
+  const handleSubmit = async(e) =>{
     e.preventDefault();
 
-    if(!amount || !category){
-      return;
+    if(updateId){
+      try {
+        await updateExpenese(updateId,{amount,category,description});
+        console.log("Update successful",{amount,category,description});
+        setAmount("");
+        setCategory("");
+        setDescription("");
+        // fetchExpenses();
+      } catch (err) {
+        console.error(err);
+      }
+
     }
-    try {
-      console.log("adding expense:",{amount,category,description});
-      await addExpense({amount,category,description});
-      setAmount("");
-      setCategory("");
-      setDescription("");
-      fetchExpenses();
-    } catch (err) {
-      console.error(err.message);
+    else{
+      if(!amount || !category){
+        return;
+      }
+      try {
+        console.log("adding expense:",{amount,category,description});
+        await addExpense({amount,category,description});
+        setAmount("");
+        setCategory("");
+        setDescription("");
+        fetchExpenses();
+      } catch (err) {
+        console.error(err.message);
+      }
     }
   }
 
@@ -50,15 +67,22 @@ const Expenses = () => {
       console.error(err.message);
     }
   }
+
+  const handleEdit = (expense) =>{
+    setAmount(expense.amount);
+    setCategory(expense.category);
+    setDescription(expense.description);
+    setUpdateId(expense.id);
+  }
   
   return (
     <div className='p-6 max-w-3xl mx-auto flex flex-col items-center justify-center '>
       <h1 className='text-2xl font-bold mb-6 '>Expenses</h1>
-      <form onSubmit={handleAddExpense} className='flex gap-4 mb-6'>
+      <form onSubmit={handleSubmit} className='flex gap-4 mb-6'>
         <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
-        <button type='submit' className='text-white bg-gray-600 px-4 rounded'>Add</button>
+        <button type='submit' className='text-white bg-gray-600 px-4 rounded'>{updateId ? "Edit" : "Add"}</button>
       </form>
 
       <ul className='space-y-5'>
@@ -68,6 +92,7 @@ const Expenses = () => {
               <p className='font-semibold'> ${exp.amount} - {exp.category} </p>
               <p className='text-sm text-gray-500'> {exp.description} </p>
             </div>
+            <button className='text-blue-600' onClick={()=>handleEdit(exp.id)}>Edit</button>
             <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
           </li>
         ))}
