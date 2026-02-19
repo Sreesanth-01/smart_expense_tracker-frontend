@@ -1,7 +1,7 @@
 import api from "./axios"
 
-export const getExpenses = async() =>{
-    return api.get("/expenses");
+export const getExpenses = async(page,size) =>{
+    return api.get(`/expenses?page=${page}&size=${size}`);
 }
 
 export const addExpense = async(data) =>(

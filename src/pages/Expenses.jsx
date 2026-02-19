@@ -11,20 +11,25 @@ const Expenses = () => {
   const [category,setCategory] = useState("");
   const [description,setDescription] = useState("");
 
+  const [page,setPage] = useState(0);
+  const [size] = useState(3);
+  const [totalPages,setTotalPages] = useState(0);
+
   const [updateId, setUpdateId] = useState(null);
 
   useEffect(()=>{
     fetchExpenses();
-  },[])
+  },[page])
 
   const fetchExpenses = async() =>{
     try {
       setIsLoading(true);
-      const res = await getExpenses();
+      const res = await getExpenses(page,size);
       
       // console.log("Axios Full Response:", res);
       // console.log("Your API Data:", res.data.data);
       setExpenses(res.data.data.content);
+      setTotalPages(res.data.data.totalPages);
     } catch (err) {
       console.error("Failed to fetch expenses", err.message);
       setErrorMessage("Unable to fetch expenses. Please try again later.");
@@ -121,6 +126,10 @@ const Expenses = () => {
           </li>
         ))}
       </ul>
+      <div className='flex space-5 gap-5 mt-4'>
+        <button disabled={page===0} onClick={()=>setPage(prev=>prev-1)} className='px-3 py-1 border rounded bg-gray disabled:opacity-50'>Previous</button>
+        <button disabled={page+1>=totalPages}  onClick={()=>setPage(prev=>prev+1)} className='px-3 py-1 border rounded bg-gray disabled:opacity-50'>Next</button>
+      </div>
       
     </div>
   )
