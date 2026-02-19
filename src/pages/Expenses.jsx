@@ -3,6 +3,9 @@ import { addExpense, deleteExpense, getExpenses, updateExpense } from '../api/ex
 import Input from '../components/common/Input';
 
 const Expenses = () => {
+  const [isLoading,setIsLoading] = useState(false);
+  const [isSubmitting,setIsSubmitting] = useState(false);
+  const [errorMessage,setErrorMessage] = useState("");
   const [expenses,setExpenses] = useState([]);
   const [amount,setAmount] = useState(0.0);
   const [category,setCategory] = useState("");
@@ -16,12 +19,18 @@ const Expenses = () => {
 
   const fetchExpenses = async() =>{
     try {
+      setIsLoading(true);
       const res = await getExpenses();
+      
       // console.log("Axios Full Response:", res);
       // console.log("Your API Data:", res.data.data);
       setExpenses(res.data.data.content);
     } catch (err) {
       console.error("Failed to fetch expenses", err.message);
+      setErrorMessage("Unable to fetch expenses. Please try again later.");
+    }
+    finally{
+      setIsLoading(false);
     }
   }
 
@@ -102,6 +111,8 @@ const Expenses = () => {
         <button type='submit' className='text-white bg-gray-600 px-4 rounded'>{updateId ? "Edit" : "Add"}</button>
       </form>
 
+      {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
+      {errorMessage && <p className='text-sm text-red-800'>{errorMessage}</p>}
       <ul className='space-y-5'>
         {expenses.map((exp)=>(
           <li key={exp.id} className='flex justify-between border rounded p-5 gap-10'>
