@@ -36,12 +36,12 @@ const Expenses = () => {
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
-
-    if(updateId){
-      try {
+    try{
+      setIsSubmitting(true);
+      if(updateId){
         const updatedExpense = {
           id:updateId,
-          amount,
+            amount,
           category,
           description
         }
@@ -52,35 +52,31 @@ const Expenses = () => {
 
         setExpenses((prevExpenses) =>
           prevExpenses.map((exp) =>
-            Number(exp.id) === Number(updateId) ? { ...exp, ...updatedExpense } : exp
-        
-          )
-        );
+            Number(exp.id) === Number(updateId) ? { ...exp, ...updatedExpense } : exp)
+          );
 
-        setAmount(0.0);
-        setCategory("");
-        setDescription("");
-        setUpdateId(null);
         // fetchExpenses();
-      } catch (err) {
-        console.error(err);
       }
-
-    }
-    else{
-      if(!amount || !category){
-        return;
-      }
-      try {
+      else{
+        if(!amount || !category){
+          return;
+        }
         console.log("adding expense:",{amount,category,description});
         await addExpense({amount,category,description});
-        setAmount(0.0);
-        setCategory("");
-        setDescription("");
         fetchExpenses();
-      } catch (err) {
-        console.error(err.message);
       }
+    }
+    catch(err){
+      console.error(err);
+      setErrorMessage("Something went wrong.")
+    }
+    finally{
+      setIsSubmitting(false);
+      setAmount(0.0);
+      setCategory("");
+      setDescription("");
+      setUpdateId(null);
+
     }
   }
 
@@ -108,7 +104,7 @@ const Expenses = () => {
         <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
-        <button type='submit' className='text-white bg-gray-600 px-4 rounded'>{updateId ? "Edit" : "Add"}</button>
+        <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
       {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
