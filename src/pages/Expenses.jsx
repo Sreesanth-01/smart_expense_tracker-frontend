@@ -15,20 +15,28 @@ const Expenses = () => {
   const [size] = useState(3);
   const [totalPages,setTotalPages] = useState(0);
 
+  const [selectedCategory,setSelectedCategory] = useState("");
+  const [sortField,setSortField] = useState("amount");
+  const [sortDirection,setSortDirection] = useState("Desc");
+
   const [updateId, setUpdateId] = useState(null);
 
   useEffect(()=>{
     fetchExpenses();
-  },[page])
+  },[page,sortField,sortDirection,selectedCategory])
 
   const fetchExpenses = async() =>{
     try {
       setIsLoading(true);
-      const res = await getExpenses(page,size);
+      const res = await getExpenses(page,size,sortField,sortDirection);
       
-      // console.log("Axios Full Response:", res);
-      // console.log("Your API Data:", res.data.data);
-      setExpenses(res.data.data.content);
+      let data = res.data.data.content;
+
+      if(selectedCategory){
+        data = data.filter(exp => exp.category===selectedCategory);
+      }
+
+      setExpenses(data);
       setTotalPages(res.data.data.totalPages);
     } catch (err) {
       console.error("Failed to fetch expenses", err.message);
@@ -111,6 +119,20 @@ const Expenses = () => {
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
         <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
+
+      <div>
+        <select value={sortField} onChange={(e)=> setSortField(e.target.value)}>
+          <option value="amount">Amount</option>
+          <option value="date">Date</option>
+        </select>
+
+        <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)}>
+          <option value="Asc">Ascending</option>
+          <option value="Desc">Descending</option>
+        </select>
+
+        <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
+      </div>
 
       {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
       {errorMessage && <p className='text-sm text-red-800'>{errorMessage}</p>}
