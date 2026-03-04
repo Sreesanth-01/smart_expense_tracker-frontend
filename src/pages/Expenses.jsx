@@ -120,13 +120,13 @@ const Expenses = () => {
         <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
-      <div>
-        <select value={sortField} onChange={(e)=> setSortField(e.target.value)}>
+      <div className='flex gap-5 mb-4 '>
+        <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='border px-2 py-1 rounded'>
           <option value="amount">Amount</option>
           <option value="date">Date</option>
         </select>
 
-        <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)}>
+        <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)} className='border px-2 py-1 rounded'>
           <option value="Asc">Ascending</option>
           <option value="Desc">Descending</option>
         </select>
