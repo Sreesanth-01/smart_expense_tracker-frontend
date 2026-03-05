@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addExpense, deleteExpense, getExpenses, updateExpense } from '../api/expenseApi';
+import { addExpense, deleteExpense, getExpenses, getExpensesByCategory, updateExpense } from '../api/expenseApi';
 import Input from '../components/common/Input';
 
 const Expenses = () => {
@@ -15,6 +15,8 @@ const Expenses = () => {
   const [size] = useState(3);
   const [totalPages,setTotalPages] = useState(0);
 
+  const [showFilters,setShowFilters] = useState(false);
+
   const [selectedCategory,setSelectedCategory] = useState("");
   const [sortField,setSortField] = useState("amount");
   const [sortDirection,setSortDirection] = useState("Desc");
@@ -23,7 +25,7 @@ const Expenses = () => {
 
   useEffect(()=>{
     fetchExpenses();
-  },[page,sortField,sortDirection,selectedCategory])
+  },[page])
 
   const fetchExpenses = async() =>{
     try {
@@ -109,6 +111,23 @@ const Expenses = () => {
     setDescription(expense.description ?? "");
     setUpdateId(expense.id);
   }
+
+  const applyFilters = async() =>{
+    try {
+      if(selectedCategory){
+        const res = await getExpensesByCategory(selectedCategory);
+        setExpenses(res.data.data);
+        return;
+      }
+      const res = await getExpenses(page,size,sortField,sortDirection);
+      setExpenses(res.data.data.content);
+    } catch (err) {
+      console.error("Failed to apply filters");
+    }
+    finally{
+      setShowFilters(false);
+    }
+  }
   
   return (
     <div className='p-6 max-w-3xl mx-auto flex flex-col items-center justify-center '>
@@ -120,19 +139,24 @@ const Expenses = () => {
         <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
-      <div className='flex gap-5 mb-4 '>
-        <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='border px-2 py-1 rounded'>
-          <option value="amount">Amount</option>
-          <option value="date">Date</option>
-        </select>
+      <button onClick={()=>setShowFilters(!showFilters)} className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4'>Filter</button>
 
-        <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)} className='border px-2 py-1 rounded'>
-          <option value="Asc">Ascending</option>
-          <option value="Desc">Descending</option>
-        </select>
+      {showFilters && (
+        <div className='border shadow-md p-4 rounded mb-6 flex gap-4 flex-wrap bg-gray-50'>
+          <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='border px-2 py-1 rounded'>
+            <option value="amount">Amount</option>
+            <option value="date">Date</option>
+          </select>
 
-        <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
-      </div>
+          <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)} className='border px-2 py-1 rounded'>
+            <option value="Asc">Ascending</option>
+            <option value="Desc">Descending</option>
+          </select>
+
+          <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
+
+          <button onClick={applyFilters}>Apply</button>
+      </div>)}
 
       {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
       {errorMessage && <p className='text-sm text-red-800'>{errorMessage}</p>}
