@@ -1,6 +1,6 @@
 import api from "./axios"
 
-export const getExpenses = async(page,size,sortField,sortDirection) =>{
+export const getExpenses = async(page,size,sortField='amount',sortDirection='asc') =>{
     return api.get(`/expenses?page=${page}&size=${size}&sort=${sortField},${sortDirection}`);
 }
 
