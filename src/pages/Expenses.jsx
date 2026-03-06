@@ -32,11 +32,7 @@ const Expenses = () => {
       setIsLoading(true);
       const res = await getExpenses(page,size,sortField,sortDirection);
       
-      let data = res.data.data.content;
-
-      if(selectedCategory){
-        data = data.filter(exp => exp.category===selectedCategory);
-      }
+      const data = res.data.data.content
 
       setExpenses(data);
       setTotalPages(res.data.data.totalPages);
@@ -116,11 +112,11 @@ const Expenses = () => {
     try {
       if(selectedCategory){
         const res = await getExpensesByCategory(selectedCategory);
-        setExpenses(res.data.data);
+        setExpenses(res.data.data.content);
+        setTotalPages(res.data.data.totalPages);
         return;
       }
-      const res = await getExpenses(page,size,sortField,sortDirection);
-      setExpenses(res.data.data.content);
+      fetchExpenses();
     } catch (err) {
       console.error("Failed to apply filters");
     }
