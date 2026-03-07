@@ -20,6 +20,10 @@ export const getYearlySummary = async(year) =>{
     return api.get(`/expenses/summary/yearly?year=${year}`);
 }
 
+export const getCategoryWiseSummary = async() =>{
+    return api.get('/expenses/summary/category');
+}
+
 
 export const addExpense = async(data) =>(
     await api.post("/expenses",data)
