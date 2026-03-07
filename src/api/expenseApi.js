@@ -4,8 +4,12 @@ export const getExpenses = async(page,size,sortField='amount',sortDirection='asc
     return api.get(`/expenses?page=${page}&size=${size}&sort=${sortField},${sortDirection}`);
 }
 
-export const getExpensesByCategory = async(category) =>{
-    return api.get(`/expenses/category/${category}`);
+export const getExpensesByCategory = async(category,page,size) =>{
+    return api.get(`/expenses/category/${category}?page=${page}&size=${size}`);
+}
+
+export const getExpensesByDate = async(startDate,endDate,page,size) =>{
+    return api.get(`/expenses/date-range?startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
 }
 
 export const addExpense = async(data) =>(

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addExpense, deleteExpense, getExpenses, getExpensesByCategory, updateExpense } from '../api/expenseApi';
+import { addExpense, deleteExpense, getExpenses, getExpensesByCategory, getExpensesByDate, updateExpense } from '../api/expenseApi';
 import Input from '../components/common/Input';
 
 const Expenses = () => {
@@ -10,6 +10,7 @@ const Expenses = () => {
   const [amount,setAmount] = useState(0.0);
   const [category,setCategory] = useState("");
   const [description,setDescription] = useState("");
+  const [date,setDate] = useState("");
 
   const [page,setPage] = useState(0);
   const [size] = useState(3);
@@ -20,6 +21,9 @@ const Expenses = () => {
   const [selectedCategory,setSelectedCategory] = useState("");
   const [sortField,setSortField] = useState("amount");
   const [sortDirection,setSortDirection] = useState("Desc");
+
+  const [startDate,setStartDate] = useState("");
+  const [endDate,setEndDate] = useState("");
 
   const [updateId, setUpdateId] = useState(null);
 
@@ -54,12 +58,13 @@ const Expenses = () => {
           id:updateId,
             amount,
           category,
-          description
+          description,
+          date
         }
 
 
         await updateExpense(updateId,updatedExpense);
-        console.log("Update successful",{amount,category,description});
+        console.log("Update successful",{amount,category,description,date});
 
         setExpenses((prevExpenses) =>
           prevExpenses.map((exp) =>
@@ -72,8 +77,8 @@ const Expenses = () => {
         if(!amount || !category){
           return;
         }
-        console.log("adding expense:",{amount,category,description});
-        await addExpense({amount,category,description});
+        console.log("adding expense:",{amount,category,description,date});
+        await addExpense({amount,category,description,date});
         fetchExpenses();
       }
     }
@@ -86,6 +91,7 @@ const Expenses = () => {
       setAmount(0.0);
       setCategory("");
       setDescription("");
+      setDate(null);
       setUpdateId(null);
 
     }
@@ -111,7 +117,13 @@ const Expenses = () => {
   const applyFilters = async() =>{
     try {
       if(selectedCategory){
-        const res = await getExpensesByCategory(selectedCategory);
+        const res = await getExpensesByCategory(selectedCategory,page,size);
+        setExpenses(res.data.data.content);
+        setTotalPages(res.data.data.totalPages);
+        return;
+      }
+      else if(startDate && endDate){
+        const res = await getExpensesByDate(startDate,endDate,page,size);
         setExpenses(res.data.data.content);
         setTotalPages(res.data.data.totalPages);
         return;
@@ -132,6 +144,7 @@ const Expenses = () => {
         <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
+        <Input label="Date" name="date" value={date} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
         <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
@@ -151,6 +164,11 @@ const Expenses = () => {
 
           <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
 
+          <Input name="startDate" value={startDate} onChange={(e)=>setStartDate(e.target.value)} type='date' placeholder="Start date"></Input>
+          <Input name="endDate" value={endDate} onChange={(e)=>setEndDate(e.target.value)} type='date' placeholder="End date"></Input>
+
+
+
           <button onClick={applyFilters}>Apply</button>
       </div>)}
 
@@ -162,6 +180,7 @@ const Expenses = () => {
             <div>
               <p className='font-semibold'> ${exp.amount} - {exp.category} </p>
               <p className='text-sm text-gray-500'> {exp.description} </p>
+              <p className='text-sm text-purple-400'>{exp.date}</p>
             </div>
             <button className='text-blue-600' onClick={()=>handleEdit(exp)}>Edit</button>
             <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
