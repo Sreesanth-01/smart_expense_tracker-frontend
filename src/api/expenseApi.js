@@ -12,6 +12,15 @@ export const getExpensesByDate = async(startDate,endDate,page,size) =>{
     return api.get(`/expenses/date-range?startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
 }
 
+export const getMonthlySummary = async(month,year) =>{
+    return api.get(`/expenses/summary/monthly?month=${month}&year=${year}`);
+}
+
+export const getYearlySummary = async(year) =>{
+    return api.get(`/expenses/summary/yearly?year=${year}`);
+}
+
+
 export const addExpense = async(data) =>(
     await api.post("/expenses",data)
 )
