@@ -24,6 +24,10 @@ export const getCategoryWiseSummary = async() =>{
     return api.get('/expenses/summary/category');
 }
 
+export const getDailySummary = async() =>{
+    return api.get(`/expenses/summary/daily`);
+}
+
 
 export const addExpense = async(data) =>(
     await api.post("/expenses",data)

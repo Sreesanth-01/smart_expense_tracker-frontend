@@ -1,6 +1,6 @@
-import { PieChart,Pie, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { PieChart,Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// const COLORS =  ["#0088FE","#00C49F","#FFBB28","#FF8042","#AF19FF"];
+const COLORS =  ["#500303ff","#038c89ff","#7e9104ff","#AF19FF"];
 
 const CategoryPieChart = ({data}) =>{
     return(
@@ -9,7 +9,11 @@ const CategoryPieChart = ({data}) =>{
 
             <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                    <Pie data={data} dataKey="totalAmount" nameKey="category" outerRadius={120} label />
+                    <Pie data={data} dataKey="totalAmount" nameKey="category" outerRadius={120} label fill={COLORS[4]} >
+                        {Object.entries(data).map((entry,index)=>(
+                            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                    </Pie>
                     <Tooltip />
                     <Legend />
                 </PieChart>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getCategoryWiseSummary, getExpenses, getMonthlySummary, getYearlySummary } from '../api/expenseApi';
+import { getCategoryWiseSummary, getDailySummary, getExpenses, getMonthlySummary, getYearlySummary } from '../api/expenseApi';
 import CategoryPieChart from '../components/charts/CategoryPieChart';
+import SpendingLineChart from '../components/charts/SpendingLineChart';
 
 const Dashboard = () => {
   const[expenses,setExpenses] = useState([]);
@@ -14,12 +15,14 @@ const Dashboard = () => {
   const [monthAverage,setMonthAverage] = useState(0.0);
 
   const [categoryData,setCategoryData] = useState({});
+  const [dailySpendings,setDailySpendings] = useState([]);
 
   useEffect(()=>{
     fetchExpenses();
     loadMonthlySummary();
     loadYearlySummary();
     loadCategorySummary();
+    loadDailySummary();
   },[])
 
   const fetchExpenses = async() =>{
@@ -83,14 +86,30 @@ const Dashboard = () => {
     }
   }
 
+  const loadDailySummary = async() =>{
+    try {
+      const res = await getDailySummary();
+      setDailySpendings(res.data);
+      console.log(res.data);
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
 
   return (
     <div className='p-6 max-w-4xl mx-auto'>
-      <h1 className='text-2xl font-bold mb-6'>Dashboard</h1>
-      <div className='p-5'>
+      <h1 className='text-center text-2xl font-bold '>Dashboard</h1>
+      <div className='px-5 py-15'>
         <CategoryPieChart data={categoryData}></CategoryPieChart>
       </div>
-      <div className='flex gap-6 mb-8'>
+      
+      <div>
+        <SpendingLineChart data={dailySpendings}></SpendingLineChart>
+      </div>
+
+      <div className='flex items-center justify-center gap-6 p-25'>
         <div className='p-4 border rounded shadow'>
           <h2 className='text-gray-500'>Total Expenses</h2>
           <p className='text-xl font-bold '>${totalAmount}</p>
