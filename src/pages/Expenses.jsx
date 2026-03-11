@@ -144,7 +144,7 @@ const Expenses = () => {
         <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
-        <Input label="Date" name="date" value={date} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
+        <Input label="Date" name="date" value={date || ""} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
         <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-gray-600"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
