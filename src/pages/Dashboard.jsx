@@ -99,7 +99,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className='p-6 max-w-4xl mx-auto'>
+    <div className='p-6 max-w-4xl mx-auto text-[#CCC9DC]'>
       <h1 className='text-center text-2xl font-bold '>Dashboard</h1>
       <div className='px-5 py-15'>
         <CategoryPieChart data={categoryData}></CategoryPieChart>

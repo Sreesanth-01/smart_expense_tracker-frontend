@@ -1,6 +1,6 @@
 import { PieChart,Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const COLORS =  ["#500303ff","#038c89ff","#7e9104ff","#AF19FF"];
+const COLORS =  ["#21838f","#7b1d7e","#e0e0e0","#5c0505ff","#ffe0c9"];
 
 const CategoryPieChart = ({data}) =>{
     return(

@@ -12,7 +12,7 @@ const SpendingLineChart = ({data}) => {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="totalAmount" stroke='#9e04f0ff' strokeWidth={3} />
+            <Line type="monotone" dataKey="totalAmount" stroke='#CCC9DC' strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>

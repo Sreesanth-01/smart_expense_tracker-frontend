@@ -5,7 +5,7 @@ import AuthContext from '../../context/AuthContext'
 const Navbar = () => {
   const {logout} = useContext(AuthContext);
   return (
-    <nav className='flex gap-4 p-4 bg-gray-800 text-white'>
+    <nav className='flex w-full gap-4 p-4 bg-[#0C1821] text-[#CCC9DC]'>
       <Link to="/dashboard">Dashboard</Link>
       <Link to="/expenses">Expenses</Link>
       <Link to="/login">Login</Link>

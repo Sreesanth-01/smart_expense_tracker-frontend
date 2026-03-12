@@ -16,10 +16,7 @@ const AppRoutes = () =>{
                                                 <Dashboard />
                                             </ProtectedRoute>} />
                                             
-            <Route path="/expenses" element={
-                                                <Expenses />
-                                            } />
-        </Routes>
+            <Route path="/expenses" element={<Expenses />} /></Routes>
     )
 }
 
