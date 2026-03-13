@@ -141,18 +141,18 @@ const Expenses = () => {
   return (
     <div className='p-6 max-w-3xl mx-auto flex flex-col items-center justify-center text-[#CCC9DC] min-h-screen'>
       <h1 className='text-2xl font-bold mb-6 '>Expenses</h1>
-      <form onSubmit={handleSubmit} className='flex gap-4 mb-6'>
+      <form onSubmit={handleSubmit} className='grid gap-4 mb-6'>
         <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
         <Input label="Date" name="date" value={date || ""} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
-        <button type='submit' className={`text-[#CCC9DC] px-4 rounded ${isSubmitting ? "bg-[#CCC9DC] cursor-not-allowed" : "bg-[#324A5F]"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
+        <button type='submit' className={`text-[#CCC9DC] px-4 rounded ${isSubmitting ? "bg-[#324A5F] cursor-not-allowed" : "bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold" }`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
-      <button onClick={()=>setShowFilters(!showFilters)} className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4'>Filter</button>
+      <button onClick={()=>setShowFilters(!showFilters)} className='bg-[#324A5F] hover:bg-[#1b2a41] font-semibold px-4 py-2 rounded mb-4 hover:cursor-pointer'>Filter</button>
 
       {showFilters && (
-        <div className='border shadow-md p-4 rounded mb-6 flex gap-4 flex-wrap  bg-gradient-tl from-[#1B2A41] to-[#000000] justify-center'>
+        <div className='border shadow-md p-4 rounded mb-6 grid grid-cols-2 gap-4  bg-gradient-tl from-[#1B2A41] to-[#000000] justify-center'>
           <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='border px-2 py-1 rounded'>
             <option value="amount">Amount</option>
             <option value="date">Date</option>
@@ -170,7 +170,7 @@ const Expenses = () => {
 
 
 
-          <button onClick={applyFilters}>Apply</button>
+          <button onClick={applyFilters} className='border-2 border-[#324A5F] rounded bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold'>Apply</button>
       </div>)}
 
       {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
