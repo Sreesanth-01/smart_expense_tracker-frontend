@@ -111,6 +111,7 @@ const Expenses = () => {
     setAmount(expense.amount ?? 0.0);
     setCategory(expense.category ?? "");
     setDescription(expense.description ?? "");
+    setDate(expense.date ?? date);
     setUpdateId(expense.id);
   }
 
@@ -145,7 +146,7 @@ const Expenses = () => {
         <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
         <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
         <Input label="Date" name="date" value={date || ""} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
-        <button type='submit' className={`text-white px-4 rounded ${isSubmitting ? "bg-[#CCC9DC] cursor-not-allowed" : "bg-[#324A5F]"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
+        <button type='submit' className={`text-[#CCC9DC] px-4 rounded ${isSubmitting ? "bg-[#CCC9DC] cursor-not-allowed" : "bg-[#324A5F]"}`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
       </form>
 
       <button onClick={()=>setShowFilters(!showFilters)} className='bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4'>Filter</button>
