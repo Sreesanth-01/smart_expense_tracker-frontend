@@ -40,7 +40,7 @@ const Register = () => {
 
         <Input label="Password" name='password' type='password' value={form.password} onChange={handleChange} placeholder="••••••••" />
 
-        <button type='submit' className='bg-green-600 text-white py-2 rounded-md hover:bg-green-700'>Register</button>
+        <button type='submit' className='border-2 border-[#324A5F] rounded bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold'>Register</button>
 
       </form>
     </div>

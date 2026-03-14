@@ -163,11 +163,11 @@ const Expenses = () => {
             <option value="Desc">Descending</option>
           </select>
 
-          <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
 
           <Input name="startDate" value={startDate} onChange={(e)=>setStartDate(e.target.value)} type='date' placeholder="Start date"></Input>
           <Input name="endDate" value={endDate} onChange={(e)=>setEndDate(e.target.value)} type='date' placeholder="End date"></Input>
 
+          <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
 
 
           <button onClick={applyFilters} className='border-2 border-[#324A5F] rounded bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold'>Apply</button>
@@ -177,14 +177,17 @@ const Expenses = () => {
       {errorMessage && <p className='text-sm text-red-800'>{errorMessage}</p>}
       <ul className='space-y-5'>
         {expenses.map((exp)=>(
-          <li key={exp.id} className='flex justify-between border-2 border-[#324A5F]  rounded p-5 gap-10'>
-            <div>
-              <p className='font-semibold'> ${exp.amount} - {exp.category} </p>
-              <p className='text-sm text-gray-500'> {exp.description} </p>
-              <p className='text-sm text-purple-400'>{exp.date}</p>
+          <li key={exp.id} className='border-2 border-[#324A5F]  rounded p-15 gap-10 min-w-screen'>
+            <div className='grid grid-cols-6 gap-10'>
+              
+                <p className='text-sm text-purple-400'>{exp.date}</p>
+                <p className='font-semibold'> ${exp.amount}</p>
+                <p className='font-semibold'>{exp.category}</p>
+                <p className='text-sm text-gray-500'> {exp.description} </p>
+             
+              <button className='text-blue-600' onClick={()=>handleEdit(exp)}>Edit</button>
+              <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
             </div>
-            <button className='text-blue-600' onClick={()=>handleEdit(exp)}>Edit</button>
-            <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
           </li>
         ))}
       </ul>

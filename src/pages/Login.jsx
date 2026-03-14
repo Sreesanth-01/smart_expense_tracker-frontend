@@ -2,12 +2,15 @@ import React, { useContext, useState } from 'react'
 import Input from '../components/common/Input';
 import { loginUser } from '../api/authApi';
 import AuthContext from '../context/AuthContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
   const {login} = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
@@ -22,6 +25,8 @@ const Login = () => {
       const res = await loginUser({email,password});
       
       login(res.data.token);
+
+      navigate("/dashboard");
 
       console.log("token",res.data.token);
     } catch (err) {
@@ -39,7 +44,7 @@ const Login = () => {
 
         <Input label="Password" type='password' value={password} onChange={(e)=> setPassword(e.target.value)} placeholder="••••••••" />
 
-        <button type='submit' className='bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700'>Login</button>
+        <button type='submit' className='border-2 border-[#324A5F] rounded bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold'>Login</button>
 
       </form>
     </div>
