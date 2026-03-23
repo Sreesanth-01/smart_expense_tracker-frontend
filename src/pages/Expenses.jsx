@@ -13,13 +13,13 @@ const Expenses = () => {
   const [date,setDate] = useState("");
 
   const [page,setPage] = useState(0);
-  const [size] = useState(3);
+  const [size] = useState(5);
   const [totalPages,setTotalPages] = useState(0);
 
   const [showFilters,setShowFilters] = useState(false);
 
   const [selectedCategory,setSelectedCategory] = useState("");
-  const [sortField,setSortField] = useState("amount");
+  const [sortField,setSortField] = useState("date");
   const [sortDirection,setSortDirection] = useState("Desc");
 
   const [startDate,setStartDate] = useState("");
