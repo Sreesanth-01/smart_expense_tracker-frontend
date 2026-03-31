@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Input from '../components/common/Input';
 import { registerUser } from '../api/authApi';
+
+
 const Register = () => {
   const [form,setForm] = useState({
     name:"",
@@ -24,6 +26,7 @@ const Register = () => {
     try {
       const res = await registerUser(form);
       console.log("Registered: ",res.data);
+      
     } catch (err) {
       console.error(err.response ?.data || err.message);
     }

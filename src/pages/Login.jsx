@@ -27,6 +27,7 @@ const Login = () => {
       login(res.data.token);
 
       navigate("/dashboard");
+      
 
       console.log("token",res.data.token);
     } catch (err) {
