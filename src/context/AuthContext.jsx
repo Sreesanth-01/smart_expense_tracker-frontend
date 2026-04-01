@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) =>{
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userEmail, setUserEmail] = useState("");
 
     // useEffect(() =>{
