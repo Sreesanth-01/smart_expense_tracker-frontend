@@ -6,12 +6,20 @@ const Navbar = () => {
   const {isAuthenticated, userEmail, logout} = useContext(AuthContext);
 
   return (
-    <nav className='flex w-full justify-between p-4 bg-[#0C1821] text-[#CCC9DC]'>
+    <nav className='flex  w-full justify-between p-3 bg-[#0C1821] text-[#CCC9DC]'>
       <div>
+        <span>SMART</span>
+        <div>
+          Expense Tracker
+        </div>
+      </div>
+      <div className='flex items-center align-center gap-4'>
         {isAuthenticated && (
             <div className=' flex gap-4'>
               <Link to="/dashboard" className='hover:text-white-500'>Dashboard</Link>
               <Link to="/expenses" className='hover:text-white-500'>Expenses</Link>
+              <Link to="/aiinsights" className='hover:text-white-500'>Ai insights</Link>
+              <Link to="/summary" className='hover:text-white-500'>Summary</Link>
             </div>
           
         )}
@@ -25,7 +33,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <span>Hi, {userEmail}</span>
+            {/* <span>Hi, {userEmail}</span> */}
             <button onClick={logout}>Logout</button>
           </>
         )}
