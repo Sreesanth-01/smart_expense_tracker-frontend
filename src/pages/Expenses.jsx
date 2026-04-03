@@ -139,64 +139,140 @@ const Expenses = () => {
   }
   
   return (
-    <div className='p-6 max-w-3xl mx-auto flex flex-col items-center justify-center text-[#CCC9DC] min-h-screen'>
-      <h1 className='text-2xl font-bold mb-6 '>Expenses</h1>
-      <form onSubmit={handleSubmit} className='grid gap-4 mb-6'>
-        <Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}></Input> 
-        <Input label="Category" name="category"  value={category} onChange={(e)=>setCategory(e.target.value)}></Input> 
-        <Input label="Description" name="description"  value={description} onChange={(e)=>setDescription(e.target.value)}></Input>
-        <Input label="Date" name="date" value={date || ""} type='date' onChange={(e)=>setDate(e.target.value)}></Input>
-        <button type='submit' className={`text-[#CCC9DC] px-4 rounded ${isSubmitting ? "bg-[#324A5F] cursor-not-allowed" : "bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold" }`} disabled={isSubmitting}>{updateId ? "Edit" : "Add"}</button>
-      </form>
+   <div className='w-full max-w-6xl mx-auto px-4 py-8 text-[#CCC9DC] min-h-screen'>
+  <h1 className='text-3xl font-bold mb-8 text-center border-b border-[#324A5F] pb-4'>Expenses</h1>
 
-      <button onClick={()=>setShowFilters(!showFilters)} className='bg-[#324A5F] hover:bg-[#1b2a41] font-semibold px-4 py-2 rounded mb-4 hover:cursor-pointer'>Filter</button>
-
-      {showFilters && (
-        <div className='border shadow-md p-4 rounded mb-6 grid grid-cols-2 gap-4  bg-gradient-tl from-[#1B2A41] to-[#000000] justify-center'>
-          <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='border px-2 py-1 rounded'>
-            <option value="amount">Amount</option>
-            <option value="date">Date</option>
-          </select>
-
-          <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)} className='border px-2 py-1 rounded'>
-            <option value="Asc">Ascending</option>
-            <option value="Desc">Descending</option>
-          </select>
-
-
-          <Input name="startDate" value={startDate} onChange={(e)=>setStartDate(e.target.value)} type='date' placeholder="Start date"></Input>
-          <Input name="endDate" value={endDate} onChange={(e)=>setEndDate(e.target.value)} type='date' placeholder="End date"></Input>
-
-          <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Enter category"></Input>
-
-
-          <button onClick={applyFilters} className='border-2 border-[#324A5F] rounded bg-[#324A5F] hover:bg-[#1b2a41] hover:cursor-pointer font-semibold'>Apply</button>
-      </div>)}
-
-      {isLoading && <p className='text-sm text-gray-500'>Loading expenses...</p>}
-      {errorMessage && <p className='text-sm text-red-800'>{errorMessage}</p>}
-      <ul className='space-y-5'>
-        {expenses.map((exp)=>(
-          <li key={exp.id} className='border-2 border-[#324A5F]  rounded p-15 gap-10 min-w-screen'>
-            <div className='grid grid-cols-6 gap-10'>
-              
-                <p className='text-sm text-purple-400'>{exp.date}</p>
-                <p className='font-semibold'> ${exp.amount}</p>
-                <p className='font-semibold'>{exp.category}</p>
-                <p className='text-sm text-gray-500'> {exp.description} </p>
-             
-              <button className='text-blue-600' onClick={()=>handleEdit(exp)}>Edit</button>
-              <button className='text-red-600' onClick={()=>handleDelete(exp.id)}>Delete</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className='flex space-5 gap-5 mt-4'>
-        <button disabled={page===0} onClick={()=>setPage(prev=>prev-1)} className='px-3 py-1 border rounded bg-gray disabled:opacity-50'>Previous</button>
-        <button disabled={page+1>=totalPages}  onClick={()=>setPage(prev=>prev+1)} className='px-3 py-1 border rounded bg-gray disabled:opacity-50'>Next</button>
-      </div>
+  {/* Form Section */}
+  <div className='bg-[#1B2A41]/50 p-6 rounded-2xl border border-[#324A5F] mb-8 shadow-xl'>
+    <form onSubmit={handleSubmit} className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end'>
+      <div className="flex flex-col"><Input label="Amount" name="amount" type='number' value={amount} onChange={(e)=>setAmount(e.target.value)} /></div>
+      <div className="flex flex-col"><Input label="Category" name="category" value={category} onChange={(e)=>setCategory(e.target.value)} /></div>
+      <div className="flex flex-col"><Input label="Description" name="description" value={description} onChange={(e)=>setDescription(e.target.value)} /></div>
+      <div className="flex flex-col"><Input label="Date" name="date" value={date || ""} type='date' onChange={(e)=>setDate(e.target.value)} /></div>
       
+      <button 
+        type='submit' 
+        className={`w-full h-[42px] rounded-lg transition-all duration-200 text-white font-bold mb-[2px] ${
+          isSubmitting ? "bg-gray-600 cursor-not-allowed" : "bg-[#324A5F] hover:bg-[#46607a] active:scale-95"
+        }`} 
+        disabled={isSubmitting}
+      >
+        {updateId ? "Update" : "Add Expense"}
+      </button>
+    </form>
+  </div>
+
+  {/* Filter Toggle */}
+  <div className="flex justify-center mb-6">
+    <button 
+      onClick={()=>setShowFilters(!showFilters)} 
+      className='flex items-center gap-2 bg-[#324A5F] hover:bg-[#46607a] text-white font-semibold px-6 py-2 rounded-full transition-all shadow-md active:scale-95'
+    >
+      <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
+      <svg className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+    </button>
+  </div>
+
+  {/* Filter Box */}
+  {showFilters && (
+    <div className='border border-[#324A5F] shadow-2xl p-6 rounded-2xl mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-gradient-to-br from-[#1B2A41] to-[#0a0f18] animate-in fade-in zoom-in duration-200'>
+      <div className="flex flex-col gap-2">
+        <label className="text-xs text-gray-400 uppercase tracking-wider">Sort By</label>
+        <select value={sortField} onChange={(e)=> setSortField(e.target.value)} className='bg-[#0a0f18] border border-[#324A5F] text-[#CCC9DC] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#324A5F] outline-none'>
+          <option value="amount">Amount</option>
+          <option value="date">Date</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="text-xs text-gray-400 uppercase tracking-wider">Direction</label>
+        <select value={sortDirection} onChange={(e)=> setSortDirection(e.target.value)} className='bg-[#0a0f18] border border-[#324A5F] text-[#CCC9DC] px-3 py-2 rounded-lg focus:ring-2 focus:ring-[#324A5F] outline-none'>
+          <option value="Asc">Ascending</option>
+          <option value="Desc">Descending</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="text-xs text-gray-400 uppercase tracking-wider">Category</label>
+        <Input name="selectedCategory" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)} placeholder="Search category..." />
+      </div>
+
+      <div className="flex flex-col gap-2"><label className="text-xs text-gray-400 uppercase tracking-wider">Start Date</label><Input name="startDate" value={startDate} onChange={(e)=>setStartDate(e.target.value)} type='date' /></div>
+      <div className="flex flex-col gap-2"><label className="text-xs text-gray-400 uppercase tracking-wider">End Date</label><Input name="endDate" value={endDate} onChange={(e)=>setEndDate(e.target.value)} type='date' /></div>
+
+      <button onClick={applyFilters} className='h-[42px] mt-auto border-2 border-[#324A5F] rounded-lg bg-[#324A5F] hover:bg-[#46607a] text-white font-bold transition-all active:scale-95'>
+        Apply Filters
+      </button>
     </div>
+  )}
+
+  {/* Status Messages */}
+  <div className="text-center mb-4">
+    {isLoading && <p className='text-sm text-blue-400 animate-pulse'>Loading expenses...</p>}
+    {errorMessage && <p className='text-sm text-red-500 bg-red-500/10 py-2 rounded-lg border border-red-500/20'>{errorMessage}</p>}
+  </div>
+
+  {/* Expenses List */}
+  <div className="w-full overflow-hidden">
+    <ul className='space-y-4'>
+      {expenses.map((exp)=>(
+        <li key={exp.id} className='bg-[#1B2A41]/30 border border-[#324A5F] rounded-xl p-4 sm:p-5 hover:bg-[#1B2A41]/50 transition-colors shadow-sm'>
+          <div className='grid grid-cols-2 sm:grid-cols-6 gap-4 items-center'>
+            
+            <div className="col-span-1">
+               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Date</p>
+               <p className='text-sm text-purple-400 font-mono'>{exp.date}</p>
+            </div>
+
+            <div className="col-span-1 text-right sm:text-left">
+               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Amount</p>
+               <p className='font-bold text-lg text-white'>${exp.amount}</p>
+            </div>
+
+            <div className="col-span-1">
+               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Category</p>
+               <span className='bg-[#324A5F]/40 px-2 py-1 rounded text-xs font-semibold text-blue-200 border border-[#324A5F]'>{exp.category}</span>
+            </div>
+
+            <div className="col-span-1 sm:col-span-1 truncate">
+               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Description</p>
+               <p className='text-sm text-gray-400 italic'>"{exp.description || 'No desc'}"</p>
+            </div>
+           
+            <div className='col-span-2 sm:col-span-2 flex justify-end gap-4 mt-2 sm:mt-0 border-t sm:border-t-0 border-[#324A5F] pt-3 sm:pt-0'>
+              <button className='text-blue-400 hover:text-blue-300 font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleEdit(exp)}>
+                Edit
+              </button>
+              <button className='text-red-500 hover:text-red-400 font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleDelete(exp.id)}>
+                Delete
+              </button>
+            </div>
+
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {/* Pagination */}
+  <div className='flex justify-center items-center gap-6 mt-10'>
+    <button 
+      disabled={page===0} 
+      onClick={()=>setPage(prev=>prev-1)} 
+      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F] disabled:opacity-30 disabled:cursor-not-allowed transition-all'
+    >
+      Previous
+    </button>
+    <span className="text-sm font-mono text-gray-400 uppercase tracking-widest">Page {page + 1} of {totalPages || 1}</span>
+    <button 
+      disabled={page+1>=totalPages}  
+      onClick={()=>setPage(prev=>prev+1)} 
+      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F] disabled:opacity-30 disabled:cursor-not-allowed transition-all'
+    >
+      Next
+    </button>
+  </div>
+</div>
   )
 }
 
