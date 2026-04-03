@@ -1,18 +1,25 @@
 import React, { useContext } from 'react'
 import {Link} from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
+import logo from '../../assets/logo.png'
+
 
 const Navbar = () => {
   const {isAuthenticated, userEmail, logout} = useContext(AuthContext);
 
   return (
     <nav className='flex  w-full justify-between p-3 bg-[#0C1821] text-[#CCC9DC]'>
-      <div>
-        <span>SMART</span>
+      <div className='flex items-center w-fit'>
+        <img src={logo} alt='Logo' className='w-1/8'></img>
         <div>
-          Expense Tracker
+          <div>
+            <span>SMART</span>
+          </div>
+          <div>
+            Expense Tracker
+          </div>
         </div>
-      </div>
+      </div>  
       <div className='flex items-center align-center gap-4'>
         {isAuthenticated && (
             <div className=' flex gap-4'>

@@ -99,72 +99,108 @@ const Dashboard = () => {
 
 
   return (
-    <div className='p-6 max-w-4xl mx-auto text-[#CCC9DC]'>
-      <h1 className='text-center text-2xl font-bold '>Dashboard</h1>
-      <div className='px-5 py-15'>
-        <CategoryPieChart data={categoryData}></CategoryPieChart>
-      </div>
-      
-      <div>
-        <SpendingLineChart data={dailySpendings}></SpendingLineChart>
-      </div>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-[#CCC9DC] bg-[#1A1B26] min-h-screen">
+  
+  {/* 1. Header */}
+  <header className="mb-10">
+    <h1 className="text-2xl sm:text-3xl font-bold text-center md:text-left">Dashboard</h1>
+  </header>
 
-      <div className='flex items-center justify-center gap-6 p-25'>
-        <div className='p-4 border rounded shadow'>
-          <h2 className='text-gray-500'>Total Expenses</h2>
-          <p className='text-xl font-bold '>${totalAmount}</p>
-        </div>
-        <div className='p-4 border rounded shadow'>
-          <h2 className='text-gray-500'>Total Transactions</h2>
-          <p className='text-xl font-bold'>{totalCount}</p>
-        </div>
-      </div>
+  {/* 2. Top Stats Row (Corrected spacing) */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div className="p-5 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg">
+      <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Total Expenses</h2>
+      <p className="text-2xl font-bold mt-2 text-red-400">${totalAmount}</p>
+    </div>
+    <div className="p-5 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg">
+      <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Transactions</h2>
+      <p className="text-2xl font-bold mt-2 text-blue-400">{totalCount}</p>
+    </div>
+    <div className="p-5 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg">
+      <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Monthly Total</h2>
+      <p className="text-2xl font-bold mt-2 text-emerald-400">${monthlyTotal}</p>
+    </div>
+    <div className="p-5 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg">
+      <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Daily Average</h2>
+      <p className="text-2xl font-bold mt-2 text-purple-400">${average}</p>
+    </div>
+  </div>
 
+  {/* 3. Charts Section (Fixed Overlap) */}
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+    {/* Pie Chart Card */}
+    <div className="p-6 bg-[#24283b] border border-[#414868] rounded-2xl shadow-xl overflow-hidden">
+      <h3 className="text-lg font-semibold mb-6">Spending by Category</h3>
+      <div className="h-[350px] w-full relative">
+         <CategoryPieChart data={categoryData} />
+      </div>
+    </div>
+
+    {/* Line Chart Card - Increased height to prevent X-Axis overlap */}
+    <div className="p-6 bg-[#24283b] border border-[#414868] rounded-2xl shadow-xl overflow-hidden">
+      <h3 className="text-lg font-semibold mb-6">Daily Spending Trend</h3>
+      <div className="h-[350px] w-full relative">
+        <SpendingLineChart data={dailySpendings} />
+      </div>
+    </div>
+  </div>
+
+  {/* 4. Bottom Breakdown & Summaries */}
+  <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    
+    {/* Category List */}
+    <div className="xl:col-span-1 p-6 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg">
+      <h2 className="text-lg font-semibold mb-6 pb-2 border-b border-[#414868]">Category Breakdown</h2>
+      <ul className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+        {Object.entries(categoryTotals).map(([category, amount]) => (
+          <li key={category} className="flex justify-between items-center group">
+            <span className="text-gray-300 capitalize group-hover:text-white transition-colors">{category}</span>
+            <span className="font-mono font-semibold text-red-400">-${amount}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Summaries Grid */}
+    <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="p-8 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg flex flex-col justify-between">
         <div>
-          <h2 className='text-lg font-semibold mb-4'>Category Breakdown</h2>
-          <ul>
-            {Object.entries(categoryTotals).map(([category,amount])=>(
-              <li key={category} className='flex justify-between border-b py-2'>
-                <span>{category}</span>
-                <span> -${amount}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-          
-          <div className='grid grid-cols-2 gap-5'>
-            <div>
-              <h1 className='text-lg font-semibold mb-4 py-5'>Monthly Summary</h1>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Monthly Expense</h2>
-                <p className='text-xl font-bold'>${monthlyTotal}</p>
-              </div>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Total Monthly Transactions</h2>
-                <p className='text-xl font-bold'>{monthlyTransactions}</p>
-              </div>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Daily Average</h2>
-                <p className='text-xl font-bold'>${average}</p>
-              </div>
+          <h2 className="text-xl font-bold mb-6 text-indigo-300">Monthly Summary</h2>
+          <div className="space-y-6">
+            <div className="flex justify-between">
+              <span className="text-gray-400">Transactions</span>
+              <span className="font-bold text-lg">{monthlyTransactions}</span>
             </div>
-            <div>
-              <h1 className='text-lg font-semibold mb-4 py-5'>Yearly Summary</h1>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Yearly Expense</h2>
-                <p className='text-xl font-bold'>${yearlyTotal}</p>
-              </div>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Total Yearly Transactions</h2>
-                <p className='text-xl font-bold'>{yearlyTransactions}</p>
-              </div>
-              <div className='p-4 border rounded shadow'>
-                <h2 className='text-gray-500'>Monthly Average</h2>
-                <p className='text-xl font-bold'>${monthAverage}</p>
-              </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Monthly Average</span>
+              <span className="font-bold text-lg text-emerald-400">${average}</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="p-8 bg-[#24283b] border border-[#414868] rounded-2xl shadow-lg flex flex-col justify-between">
+        <div>
+          <h2 className="text-xl font-bold mb-6 text-amber-300">Yearly Summary</h2>
+          <div className="space-y-6">
+            <div className="flex justify-between">
+              <span className="text-gray-400">Total Yearly</span>
+              <span className="font-bold text-2xl text-indigo-400">${yearlyTotal}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Yearly Trans.</span>
+              <span className="font-bold text-lg">{yearlyTransactions}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Monthly Average</span>
+              <span className="font-bold text-lg">${monthAverage}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
   )
 }
 

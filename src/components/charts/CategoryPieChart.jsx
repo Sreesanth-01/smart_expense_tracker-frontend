@@ -4,8 +4,7 @@ const COLORS =  ["#21838f","#7b1d7e","#e0e0e0","#5c0505ff","#ffe0c9"];
 
 const CategoryPieChart = ({data}) =>{
     return(
-        <div className="w-full h-80">
-            <h2 className="text-lg font-semibold mb-4">Spendings By Category</h2>
+        <div className="w-full h-full">
 
             <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -15,7 +14,7 @@ const CategoryPieChart = ({data}) =>{
                         ))}
                     </Pie>
                     <Tooltip />
-                    <Legend />
+                    <Legend wrapperStyle={{ fontSize: "12px" }} />
                 </PieChart>
             </ResponsiveContainer>
         </div>
