@@ -47,7 +47,10 @@ const Dashboard = () => {
 
   const loadMonthlySummary = async() =>{
     try {
-      const res = await getMonthlySummary(3,2026);
+      const today = new Date();
+      const month = today.getMonth()+1; //because it gives 0-indexed nums
+      const year = today.getFullYear();
+      const res = await getMonthlySummary(month,year);
       const {totalAmount,totalTransactions,dailyAverage} = res.data;
       setMonthlyTotal(totalAmount);
       setMonthlyTransactions(totalTransactions);
@@ -62,7 +65,9 @@ const Dashboard = () => {
 
   const loadYearlySummary = async() =>{
     try {
-      const res = await getYearlySummary(2026);
+      const today = new Date();
+      const year = today.getFullYear();
+      const res = await getYearlySummary(year);
       const {totalAmount,totalTransactions,monthlyAverage} = res.data;
       setYearlyTotal(totalAmount);
       setYearlyTransactions(totalTransactions);
