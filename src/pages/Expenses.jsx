@@ -216,7 +216,7 @@ const Expenses = () => {
   <div className="w-full overflow-hidden">
     <ul className='space-y-4'>
       {expenses.map((exp)=>(
-        <li key={exp.id} className='bg-[#1B2A41]/30 border border-[#324A5F] rounded-xl p-4 sm:p-5 hover:bg-[#1B2A41]/50 transition-colors shadow-sm'>
+        <li key={exp.id} className='bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 transition-colors  rounded-xl p-4 sm:p-5 shadow-sm'>
           <div className='grid grid-cols-2 sm:grid-cols-6 gap-4 items-center'>
             
             <div className="col-span-1">
