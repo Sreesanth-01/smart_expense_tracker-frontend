@@ -153,7 +153,7 @@ const Expenses = () => {
       <button 
         type='submit' 
         className={`w-full h-[42px] rounded-lg transition-all duration-200 text-white font-bold mb-[2px] ${
-          isSubmitting ? "bg-gray-600 cursor-not-allowed" : "bg-[#324A5F] hover:bg-[#46607a] active:scale-95"
+          isSubmitting ? "bg-gray-600 cursor-not-allowed" : "bg-[#324A5F] hover:bg-[#46607a] active:scale-95 cursor-pointer"
         }`} 
         disabled={isSubmitting}
       >
@@ -166,7 +166,7 @@ const Expenses = () => {
   <div className="flex justify-center mb-6">
     <button 
       onClick={()=>setShowFilters(!showFilters)} 
-      className='flex items-center gap-2 bg-[#324A5F] hover:bg-[#46607a] text-white font-semibold px-6 py-2 rounded-full transition-all shadow-md active:scale-95'
+      className='flex items-center gap-2 bg-[#324A5F] hover:bg-[#46607a] text-white font-semibold px-6 py-2 rounded-full transition-all shadow-md active:scale-95 cursor-pointer'
     >
       <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
       <svg className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
@@ -221,7 +221,7 @@ const Expenses = () => {
             
             <div className="col-span-1">
                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Date</p>
-               <p className='text-sm text-purple-400 font-mono'>{exp.date}</p>
+               <p className='text-sm text--400 font-mono'>{exp.date}</p>
             </div>
 
             <div className="col-span-1 text-right sm:text-left">
@@ -231,7 +231,7 @@ const Expenses = () => {
 
             <div className="col-span-1">
                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Category</p>
-               <span className='bg-[#324A5F]/40 px-2 py-1 rounded text-xs font-semibold text-blue-200 border border-[#324A5F]'>{exp.category}</span>
+               <span className='px-2 py-1 rounded text-xs font-semibold text-blue-200 border border-[#324A5F]'>{exp.category}</span>
             </div>
 
             <div className="col-span-1 sm:col-span-1 truncate">
