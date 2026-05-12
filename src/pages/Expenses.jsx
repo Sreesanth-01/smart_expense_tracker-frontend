@@ -139,7 +139,7 @@ const Expenses = () => {
   }
   
   return (
-   <div className='w-full max-w-6xl mx-auto px-4 py-8 text-[#CCC9DC] min-h-screen'>
+   <div className='w-full max-w-6xl mx-auto px-4 py-8 text-[#CCC9DC] min-h-screen bg-gradient-to-br from-[#0C1821] via-[#13293D] to-[#1B4965]'>
   <h1 className='text-3xl font-bold mb-8 text-center border-b border-[#324A5F] pb-4'>Expenses</h1>
 
   {/* Form Section */}
@@ -240,10 +240,10 @@ const Expenses = () => {
             </div>
            
             <div className='col-span-2 sm:col-span-2 flex justify-end gap-4 mt-2 sm:mt-0 border-t sm:border-t-0 border-[#324A5F] pt-3 sm:pt-0'>
-              <button className='text-blue-400 hover:text-blue-300 font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleEdit(exp)}>
+              <button className='text-blue-400 hover:text-blue-300  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleEdit(exp)}>
                 Edit
               </button>
-              <button className='text-red-500 hover:text-red-400 font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleDelete(exp.id)}>
+              <button className='text-red-500 hover:text-red-400  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleDelete(exp.id)}>
                 Delete
               </button>
             </div>
@@ -259,7 +259,7 @@ const Expenses = () => {
     <button 
       disabled={page===0} 
       onClick={()=>setPage(prev=>prev-1)} 
-      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F] disabled:opacity-30 disabled:cursor-not-allowed transition-all'
+      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F] hover:cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-all'
     >
       Previous
     </button>
@@ -267,7 +267,7 @@ const Expenses = () => {
     <button 
       disabled={page+1>=totalPages}  
       onClick={()=>setPage(prev=>prev+1)} 
-      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F] disabled:opacity-30 disabled:cursor-not-allowed transition-all'
+      className='px-6 py-2 border border-[#324A5F] rounded-lg bg-[#1B2A41] hover:bg-[#324A5F]  hover:cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-all'
     >
       Next
     </button>
