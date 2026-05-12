@@ -104,7 +104,7 @@ const Dashboard = () => {
 
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-[#CCC9DC] min-h-screen">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-[#CCC9DC] min-h-screen bg-gradient-to-br from-[#0C1821] via-[#13293D] to-[#1B4965]">
   
   {/* 1. Header */}
   <header className="mb-10">
@@ -115,19 +115,19 @@ const Dashboard = () => {
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
     <div className="p-5 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg">
       <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Total Expenses</h2>
-      <p className="text-2xl font-bold mt-2 text-red-400">${totalAmount}</p>
+      <p className="text-2xl font-bold mt-2 text-white">${totalAmount}</p>
     </div>
     <div className="p-5 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg">
       <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Transactions</h2>
-      <p className="text-2xl font-bold mt-2 text-blue-400">{totalCount}</p>
+      <p className="text-2xl font-bold mt-2 text-white">{totalCount}</p>
     </div>
     <div className="p-5 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg">
       <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Monthly Total</h2>
-      <p className="text-2xl font-bold mt-2 text-emerald-400">${monthlyTotal}</p>
+      <p className="text-2xl font-bold mt-2 text-white">${monthlyTotal}</p>
     </div>
     <div className="p-5 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg">
       <h2 className="text-xs uppercase tracking-wider text-gray-400 font-semibold">Daily Average</h2>
-      <p className="text-2xl font-bold mt-2 text-purple-400">${average}</p>
+      <p className="text-2xl font-bold mt-2 text-white">${average}</p>
     </div>
   </div>
 
@@ -160,7 +160,7 @@ const Dashboard = () => {
         {Object.entries(categoryTotals).map(([category, amount]) => (
           <li key={category} className="flex justify-between items-center group">
             <span className="text-gray-300 capitalize group-hover:text-white transition-colors">{category}</span>
-            <span className="font-mono font-semibold text-red-400">-${amount}</span>
+            <span className="font-mono font-semibold text-white">- ${amount}</span>
           </li>
         ))}
       </ul>
@@ -170,19 +170,19 @@ const Dashboard = () => {
     <div className="xl:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="p-8 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg flex flex-col justify-between">
         <div>
-          <h2 className="text-xl font-bold mb-6 text-indigo-300">Monthly Summary</h2>
+          <h2 className="text-xl font-bold mb-6 border-b border-[#414868] pb-2">Monthly Summary</h2>
           <div className="space-y-6">
             <div className="flex justify-between">
               <span className="text-gray-400">Monthly Total</span>
-              <span className="font-bold text-lg text-emerald-400">${monthlyTotal}</span>
+              <span className="font-bold text-lg text-white">${monthlyTotal}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Monthly Transactions</span>
-              <span className="font-bold text-lg">{monthlyTransactions}</span>
+              <span className="font-bold text-lg text-white">{monthlyTransactions}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Daily Average</span>
-              <span className="font-bold text-lg ">${average}</span>
+              <span className="font-bold text-lg text-white">${average}</span>
             </div>
           </div>
         </div>
@@ -190,19 +190,19 @@ const Dashboard = () => {
 
       <div className="p-8 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg flex flex-col justify-between">
         <div>
-          <h2 className="text-xl font-bold mb-6 text-amber-300">Yearly Summary</h2>
+          <h2 className="text-xl font-bold mb-6 border-b border-[#414868] pb-2">Yearly Summary</h2>
           <div className="space-y-6">
             <div className="flex justify-between">
               <span className="text-gray-400">Total Yearly</span>
-              <span className="font-bold text-2xl text-indigo-400">${yearlyTotal}</span>
+              <span className="font-bold text-2xl text-white">${yearlyTotal}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Yearly Transactions</span>
-              <span className="font-bold text-lg">{yearlyTransactions}</span>
+              <span className="font-bold text-lg text-white">{yearlyTransactions}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Monthly Average</span>
-              <span className="font-bold text-lg">${monthAverage}</span>
+              <span className="font-bold text-lg text-white">${monthAverage}</span>
             </div>
           </div>
         </div>

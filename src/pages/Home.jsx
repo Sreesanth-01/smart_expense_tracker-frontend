@@ -13,7 +13,7 @@ const   Home = () => {
         <div className="flex-1 space-y-6">
 
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            Welcome back,
+            Welcome,
             <br />
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
               {userEmail}
