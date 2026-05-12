@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom';
 
 const   Home = () => {
   const {userEmail} = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0C1821] via-[#13293D] to-[#1B4965] text-white">
       {/* Hero Section */}
@@ -24,7 +26,7 @@ const   Home = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <button className="bg-cyan-500 hover:bg-cyan-600 transition px-6 py-3 rounded-xl font-semibold shadow-lg shadow-cyan-500/30">
+            <button onClick={()=>navigate("/expenses")} className="bg-cyan-500 hover:bg-cyan-600 hover:cursor-pointer transition px-6 py-3 rounded-xl font-semibold shadow-lg shadow-cyan-500/30">
               Get Started
             </button>
           </div>
@@ -37,7 +39,7 @@ const   Home = () => {
             <div className="absolute -top-8 -left-8 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
 
-            <div className="relative bg-white/10 border border-white/10 backdrop-blur-xl rounded-3xl p-10 shadow-2xl">
+            <div className="relative  rounded-3xl p-10 shadow-2xl">
               <div className="space-y-6">
 
                 <div className="bg-[#1E293B]/70 rounded-2xl p-5 border border-white/10">
@@ -86,7 +88,7 @@ const   Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-white/10 border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
+          <div className=" border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
             <div className="text-4xl mb-4">📊</div>
             <h3 className="text-xl font-semibold mb-2">Interactive Analytics</h3>
             <p className="text-gray-300">
@@ -94,7 +96,7 @@ const   Home = () => {
             </p>
           </div>
 
-          <div className="bg-white/10 border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
+          <div className=" border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
             <div className="text-4xl mb-4">⚡</div>
             <h3 className="text-xl font-semibold mb-2">Fast & Responsive</h3>
             <p className="text-gray-300">
@@ -102,7 +104,7 @@ const   Home = () => {
             </p>
           </div>
 
-          <div className="bg-white/10 border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
+          <div className=" border border-white/10 rounded-3xl p-6 backdrop-blur-lg hover:scale-105 transition duration-300">
             <div className="text-4xl mb-4">🔒</div>
             <h3 className="text-xl font-semibold mb-2">Secure Access</h3>
             <p className="text-gray-300">
