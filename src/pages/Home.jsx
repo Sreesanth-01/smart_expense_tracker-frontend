@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
+import rightpic from '../assets/rightpic.png';
 
 const   Home = () => {
   const {userEmail} = useContext(AuthContext);
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0C1821] via-[#13293D] to-[#1B4965] text-white">
+    <div className="min-h-screen text-white">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left Content */}
@@ -32,46 +33,13 @@ const   Home = () => {
           </div>
         </div>
 
-        {/* Right Illustration */}
-        <div className="flex-1 w-full max-w-lg flex justify-center">
-          <div className="relative w-full max-w-md">
-
-            <div className="absolute -top-8 -left-8 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
-
-            <div className="relative  rounded-3xl p-10 shadow-2xl">
-              <div className="space-y-6">
-
-                <div className="bg-[#1E293B]/70 rounded-2xl p-5 border border-white/10">
-                  <h3 className="text-xl font-semibold mb-2 text-cyan-400">
-                    Smart Expense Tracking
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    Organize your expenses efficiently and stay aware of where your money goes.
-                  </p>
-                </div>
-
-                <div className="bg-[#1E293B]/70 rounded-2xl p-5 border border-white/10">
-                  <h3 className="text-xl font-semibold mb-2 text-blue-400">
-                    Responsive & Modern
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    Enjoy a seamless experience across desktop, tablet, and mobile devices.
-                  </p>
-                </div>
-
-                <div className="bg-[#1E293B]/70 rounded-2xl p-5 border border-white/10">
-                  <h3 className="text-xl font-semibold mb-2 text-purple-400">
-                    Secure & Reliable
-                  </h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    Your data stays protected with secure authentication and reliable backend APIs.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-          </div>
+          {/* Right Image */}
+        <div className="flex-1 w-full flex justify-center w-full max-w-md lg:max-w-lg object-contain hover:scale-105 transition duration-500">
+          <img
+            src="/src/assets/rightpic.png"
+            alt="Finance Illustration"
+            className="w-full max-w-md lg:max-w-lg object-contain drop-shadow-2xl hover:scale-105 transition duration-500"
+          />
         </div>
       </section>
 

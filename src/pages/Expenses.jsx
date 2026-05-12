@@ -139,7 +139,7 @@ const Expenses = () => {
   }
   
   return (
-   <div className='w-full max-w-6xl mx-auto px-4 py-8 text-[#CCC9DC] min-h-screen bg-gradient-to-br from-[#0C1821] via-[#13293D] to-[#1B4965]'>
+   <div className='w-full max-w-6xl mx-auto px-4 py-8 text-[#CCC9DC] min-h-screen'>
   <h1 className='text-3xl font-bold mb-8 text-center border-b border-[#324A5F] pb-4'>Expenses</h1>
 
   {/* Form Section */}
@@ -226,7 +226,7 @@ const Expenses = () => {
 
             <div className="col-span-1 text-right sm:text-left">
                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Amount</p>
-               <p className='font-bold text-lg text-white'>${exp.amount}</p>
+               <p className='font-bold text-lg text-white'>₹{exp.amount}</p>
             </div>
 
             <div className="col-span-1">
