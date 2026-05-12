@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Summary = () => {
+const   Home = () => {
   return (
     <div className='min-h-screen flex items-center justify-center text-[#CCC9DC]'>
       <h2 className='text-lg font-semibold'>Coming soon...</h2>
@@ -8,4 +8,4 @@ const Summary = () => {
   )
 }
 
-export default Summary
+export default Home

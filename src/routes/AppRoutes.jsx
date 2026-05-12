@@ -5,7 +5,7 @@ import Dashboard from "../pages/dashboard";
 import Expenses from "../pages/expenses";
 import ProtectedRoute from "./ProtectedRoute";
 import AI_Insights from "../pages/AI_Insights";
-import Summary from "../pages/Summary";
+import Home from "../pages/Home";
 
 
 const AppRoutes = () =>{
@@ -21,7 +21,7 @@ const AppRoutes = () =>{
                                             
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/aiinsights" element={<AI_Insights />} />
-            <Route path="/summary" element={<Summary />} />
+            <Route path="/home" element={<Home />} />
             
         </Routes>
 

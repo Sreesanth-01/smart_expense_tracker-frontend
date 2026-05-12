@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import Input from '../components/common/Input';
 import { loginUser } from '../api/authApi';
 import AuthContext from '../context/AuthContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email,setEmail] = useState("");
@@ -26,7 +26,7 @@ const Login = () => {
       
       login(res.data.token, email);
 
-      navigate("/dashboard");
+      navigate("/home");
       
 
       console.log("token",res.data.token);

@@ -26,10 +26,10 @@ const Navbar = () => {
       <div className='hidden lg:flex items-center gap-8'>
         {isAuthenticated && (
           <div className='flex gap-6 text-sm font-medium'>
+            <Link to="/home" className='transition-colors hover:text-white'>Home</Link>
             <Link to="/dashboard" className='transition-colors hover:text-white'>Dashboard</Link>
             <Link to="/expenses" className='transition-colors hover:text-white'>Expenses</Link>
             <Link to="/aiinsights" className='transition-colors hover:text-white'>AI Insights</Link>
-            <Link to="/summary" className='transition-colors hover:text-white'>Summary</Link>
           </div>
         )}
       </div>
@@ -71,10 +71,10 @@ const Navbar = () => {
   {/* If you add a state: {isOpen && ( ... )} */}
   {mobileToggle && 
     <div className='lg:hidden bg-[#0C1821] border-t border-[#1B2A41] px-4 py-3 space-y-3'>
+        <Link to="/home" className='block text-base hover:text-white' onClick={()=>setMobileToggle(false)}>Home</Link>
         <Link to="/dashboard" className='block text-base hover:text-white'  onClick={()=>setMobileToggle(false)}>Dashboard</Link>
         <Link to="/expenses" className='block text-base hover:text-white' onClick={()=>setMobileToggle(false)}>Expenses</Link>
         <Link to="/aiinsights" className='block text-base hover:text-white' onClick={()=>setMobileToggle(false)}>AI Insights</Link>
-        <Link to="/summary" className='block text-base hover:text-white' onClick={()=>setMobileToggle(false)}>Summary</Link>
     </div>
   } 
 </nav>
