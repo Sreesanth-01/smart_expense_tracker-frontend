@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "../pages/login";
-import Register from "../pages/register";
-import Dashboard from "../pages/dashboard";
-import Expenses from "../pages/expenses";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import Dashboard from "../pages/Dashboard";
+import Expenses from "../pages/Expenses";
 import ProtectedRoute from "./ProtectedRoute";
 import AI_Insights from "../pages/AI_Insights";
 import Home from "../pages/Home";
