@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Input from '../components/common/Input';
 import { loginUser } from '../api/authApi';
 import AuthContext from '../context/AuthContext';
@@ -9,9 +9,15 @@ const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
-  const {login} = useContext(AuthContext);
+  const {login,isAuthenticated} = useContext(AuthContext);
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigate("/home");
+    }
+  },[isAuthenticated])
 
   const handleSubmit = async(e) =>{
     e.preventDefault();

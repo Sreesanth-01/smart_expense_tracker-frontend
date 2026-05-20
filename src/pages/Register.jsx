@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Input from '../components/common/Input';
 import { registerUser } from '../api/authApi';
 import { toast } from 'react-toastify';
-
+import AuthContext from '../context/AuthContext';
+import { useEffect } from 'react';
 
 const Register = () => {
   const [form,setForm] = useState({
@@ -10,6 +11,13 @@ const Register = () => {
     email:"",
     password:""
   })
+
+    const {isAuthenticated} = useContext(AuthContext)
+    useEffect(()=>{
+      if(isAuthenticated){
+        navigate("/home");
+      }
+    },[isAuthenticated])
 
   const handleChange = (e) =>{
     setForm({...form,[e.target.name]:e.target.value});
