@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
-import rightpic from '../assets/rightpic.png';
+// import rightpic from '/rightpic.png';
 
 const   Home = () => {
   const {userEmail} = useContext(AuthContext);
@@ -36,7 +36,7 @@ const   Home = () => {
           {/* Right Image */}
         <div className="flex-1 w-full flex justify-center w-full max-w-md lg:max-w-lg object-contain hover:scale-105 transition duration-500">
           <img
-            src="/src/assets/rightpic.png"
+            src="/rightpic.png"
             alt="Finance Illustration"
             className="w-full max-w-md lg:max-w-lg object-contain drop-shadow-2xl hover:scale-105 transition duration-500"
           />
