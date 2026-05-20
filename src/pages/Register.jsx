@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Input from '../components/common/Input';
 import { registerUser } from '../api/authApi';
+import { toast } from 'react-toastify';
 
 
 const Register = () => {
@@ -25,10 +26,12 @@ const Register = () => {
 
     try {
       const res = await registerUser(form);
-      console.log("Registered: ",res.data);
+      toast.success("Registeration successful!")
+      // console.log("Registered: ",res.data);
       
     } catch (err) {
       console.error(err.response ?.data || err.message);
+      toast.error(err.response?.data?.message || "Something went wrong");
     }
   }
   return (

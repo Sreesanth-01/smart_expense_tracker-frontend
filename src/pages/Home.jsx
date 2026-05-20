@@ -47,7 +47,7 @@ const   Home = () => {
       <section className="max-w-7xl mx-auto px-6 pb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose Smart Expense Tracker?
+            Why Choose Flux Expense Tracker?
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
             Designed to help you monitor expenses, discover spending patterns,

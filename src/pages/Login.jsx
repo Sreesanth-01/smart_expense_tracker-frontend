@@ -3,6 +3,7 @@ import Input from '../components/common/Input';
 import { loginUser } from '../api/authApi';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email,setEmail] = useState("");
@@ -16,23 +17,24 @@ const Login = () => {
     e.preventDefault();
 
     if(!email || !password){
-      alert("All fields are required");
+      toast.error("All fields are required");
       return;
     }
-    console.log({email,password});
+    // console.log({email,password});
 
     try {
       const res = await loginUser({email,password});
       
       login(res.data.token, email);
+      toast.success("Login successful");
 
       navigate("/home");
       
 
-      console.log("token",res.data.token);
+      // console.log("token",res.data.token);
     } catch (err) {
       console.error(err.response?.data || err.message);
-      alert("Invalid credentials");
+      toast.error("Invalid credentials");
     }
   }
   return (
