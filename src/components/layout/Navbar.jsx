@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import logo from '../../assets/logo.png'
 
@@ -7,6 +7,13 @@ import logo from '../../assets/logo.png'
 const Navbar = () => {
   const {isAuthenticated, logout} = useContext(AuthContext);
   const [mobileToggle,setMobileToggle] = useState(false);
+
+  const navigate  = useNavigate();
+
+  const handleLogout = () =>{
+    logout();
+    navigate("/login");
+  }
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-[#0C1821] text-[#CCC9DC] border-b border-[#1B2A41] shadow-md'>
@@ -17,7 +24,7 @@ const Navbar = () => {
       <div className='flex items-center gap-3 flex-shrink-0'>
         <img src={logo} alt='Logo' className='w-10 h-10 object-contain' />
         <div className='leading-tight xs:block'>
-          <div className='font-bold text-white tracking-wider'>SMART</div>
+          <div className='font-bold text-white tracking-wider'>FLUX</div>
           <div className='text-[10px] uppercase text-gray-400'>Expense Tracker</div>
         </div>
       </div>
@@ -55,7 +62,7 @@ const Navbar = () => {
             </div>
             
             <button 
-              onClick={logout} 
+              onClick={handleLogout} 
               className='text-sm border border-[#324A5F] px-4 py-2 rounded-lg hover:bg-red-500/10 hover:text-red-400 hover:border-red-400/50 transition-all font-medium'
             >
               Logout

@@ -7,9 +7,17 @@ export const AuthProvider = ({children}) =>{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userEmail, setUserEmail] = useState("");
 
-    // useEffect(() =>{
-    //     const email = localStorage.getItem("email");
-    // })
+    useEffect(() =>{
+        const token = localStorage.getItem("token");
+        const email = localStorage.getItem("email");
+
+        if(token){
+            setIsAuthenticated(true);
+        }
+        if(email){
+            setUserEmail(email);
+        }
+    },[])
 
 
     const login = (token,email) =>{
@@ -22,9 +30,9 @@ export const AuthProvider = ({children}) =>{
 
     const logout = () =>{
         localStorage.removeItem("token");
+        localStorage.removeItem("email");
         setIsAuthenticated(false);
         setUserEmail("");
-        <Navigate to="/pages/login" />
     }
 
     return(

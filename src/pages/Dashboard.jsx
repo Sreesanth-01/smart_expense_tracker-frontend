@@ -168,14 +168,20 @@ const Dashboard = () => {
     {/* Category List */}
     <div className="xl:col-span-1 p-6 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-lg">
       <h2 className="text-lg font-semibold mb-6 pb-2 border-b border-[#414868]">Category Breakdown</h2>
-      <ul className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-        {Object.entries(categoryTotals).map(([category, amount]) => (
-          <li key={category} className="flex justify-between items-center group">
-            <span className="text-gray-300 capitalize group-hover:text-white transition-colors">{category}</span>
-            <span className="font-mono font-semibold text-white">- ₹{amount}</span>
-          </li>
-        ))}
-      </ul>
+      {categoryTotals ? (
+        <ul className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+          {Object.entries(categoryTotals).map(([category, amount]) => (
+            <li key={category} className="flex justify-between items-center group">
+              <span className="text-gray-300 capitalize group-hover:text-white transition-colors">{category}</span>
+              <span className="font-mono font-semibold text-white">- ₹{amount}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className='text-gray-400 text-center'>
+          No data available
+        </p>
+      )}
     </div>
 
     {/* Summaries Grid */}

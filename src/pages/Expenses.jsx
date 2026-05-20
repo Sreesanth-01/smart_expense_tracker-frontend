@@ -214,44 +214,50 @@ const Expenses = () => {
 
   {/* Expenses List */}
   <div className="w-full overflow-hidden">
-    <ul className='space-y-4'>
-      {expenses.map((exp)=>(
-        <li key={exp.id} className='bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 transition-colors  rounded-xl p-4 sm:p-5 shadow-sm'>
-          <div className='grid grid-cols-2 sm:grid-cols-6 gap-4 items-center'>
+    {expenses && expenses.length>0 ?(
+      <ul className='space-y-4'>
+        {expenses.map((exp)=>(
+          <li key={exp.id} className='bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 transition-colors  rounded-xl p-4 sm:p-5 shadow-sm'>
+            <div className='grid grid-cols-2 sm:grid-cols-6 gap-4 items-center'>
+              
+              <div className="col-span-1">
+                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Date</p>
+                <p className='text-sm text--400 font-mono'>{exp.date}</p>
+              </div>
+
+              <div className="col-span-1 text-right sm:text-left">
+                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Amount</p>
+                <p className='font-bold text-lg text-white'>₹{exp.amount}</p>
+              </div>
+
+              <div className="col-span-1">
+                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Category</p>
+                <span className='px-2 py-1 rounded text-xs font-semibold text-blue-200 border border-[#324A5F]'>{exp.category}</span>
+              </div>
+
+              <div className="col-span-1 sm:col-span-1 truncate">
+                <p className='text-xs text-gray-500 uppercase block sm:hidden'>Description</p>
+                <p className='text-sm text-gray-400 italic'>"{exp.description || 'No desc'}"</p>
+              </div>
             
-            <div className="col-span-1">
-               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Date</p>
-               <p className='text-sm text--400 font-mono'>{exp.date}</p>
-            </div>
+              <div className='col-span-2 sm:col-span-2 flex justify-end gap-4 mt-2 sm:mt-0 border-t sm:border-t-0 border-[#324A5F] pt-3 sm:pt-0'>
+                <button className='text-blue-400 hover:text-blue-300  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleEdit(exp)}>
+                  Edit
+                </button>
+                <button className='text-red-500 hover:text-red-400  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleDelete(exp.id)}>
+                  Delete
+                </button>
+              </div>
 
-            <div className="col-span-1 text-right sm:text-left">
-               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Amount</p>
-               <p className='font-bold text-lg text-white'>₹{exp.amount}</p>
             </div>
-
-            <div className="col-span-1">
-               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Category</p>
-               <span className='px-2 py-1 rounded text-xs font-semibold text-blue-200 border border-[#324A5F]'>{exp.category}</span>
-            </div>
-
-            <div className="col-span-1 sm:col-span-1 truncate">
-               <p className='text-xs text-gray-500 uppercase block sm:hidden'>Description</p>
-               <p className='text-sm text-gray-400 italic'>"{exp.description || 'No desc'}"</p>
-            </div>
-           
-            <div className='col-span-2 sm:col-span-2 flex justify-end gap-4 mt-2 sm:mt-0 border-t sm:border-t-0 border-[#324A5F] pt-3 sm:pt-0'>
-              <button className='text-blue-400 hover:text-blue-300  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleEdit(exp)}>
-                Edit
-              </button>
-              <button className='text-red-500 hover:text-red-400  hover:cursor-pointer font-medium text-sm flex items-center gap-1 transition-colors' onClick={()=>handleDelete(exp.id)}>
-                Delete
-              </button>
-            </div>
-
-          </div>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p className='text-gray-400 text-center'>
+        No data available
+      </p>
+    )}
   </div>
 
   {/* Pagination */}
