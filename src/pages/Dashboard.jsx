@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [yearlyTransactions,setYearlyTransactions] = useState(0);
   const [monthAverage,setMonthAverage] = useState(0.0);
 
-  const [categoryData,setCategoryData] = useState({});
+  const [categoryData,setCategoryData] = useState([]);
   const [dailySpendings,setDailySpendings] = useState([]);
 
   useEffect(()=>{
@@ -137,7 +137,13 @@ const Dashboard = () => {
     <div className="p-6 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-xl overflow-hidden">
       <h3 className="text-lg font-semibold mb-6">Spending by Category</h3>
       <div className="h-[350px] w-full relative">
-         <CategoryPieChart data={categoryData} />
+        {categoryData && categoryData.length>0 ? (
+          <CategoryPieChart data={categoryData} />
+        ) : (
+          <p className='text-gray-400 text-center'>
+            No data avaialable
+          </p>
+        )}
       </div>
     </div>
 
@@ -145,7 +151,13 @@ const Dashboard = () => {
     <div className="p-6 bg-[#1B2A41]/30 border border-[#324A5F] hover:bg-[#1B2A41]/50 border border-[#414868] rounded-2xl shadow-xl overflow-hidden">
       <h3 className="text-lg font-semibold mb-6">Daily Spending Trend</h3>
       <div className="h-[350px] w-full relative">
-        <SpendingLineChart data={dailySpendings} />
+        {dailySpendings && dailySpendings.length>0 ?(
+          <SpendingLineChart data={dailySpendings} />
+        ):(
+          <p className='text-gray-400 text-center'>
+            No data available
+          </p>
+        )}
       </div>
     </div>
   </div>
