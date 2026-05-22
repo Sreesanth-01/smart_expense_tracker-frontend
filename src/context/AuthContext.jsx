@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import { Navigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -7,17 +8,39 @@ export const AuthProvider = ({children}) =>{
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
     const [userEmail, setUserEmail] = useState("");
 
-    useEffect(() =>{
-        const token = localStorage.getItem("token");
-        const email = localStorage.getItem("email");
+   useEffect(() => {
 
-        if(token){
-            setIsAuthenticated(true);
+    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("email");
+
+    if (token) {
+
+        try {
+
+            const decoded = jwtDecode(token);
+
+            const currentTime = Date.now() / 1000;
+
+            if (decoded.exp < currentTime) {
+
+                logout();
+
+            } else {
+
+                setIsAuthenticated(true);
+
+                if (email) {
+                    setUserEmail(email);
+                }
+            }
+
+        } catch (err) {
+
+            logout();
         }
-        if(email){
-            setUserEmail(email);
-        }
-    },[])
+    }
+
+}, []);
 
 
     const login = (token,email) =>{
