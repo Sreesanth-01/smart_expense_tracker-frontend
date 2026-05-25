@@ -10,10 +10,15 @@ export const AuthProvider = ({children}) =>{
 
    useEffect(() => {
 
-    const token = localStorage.getItem("token");
-    const email = localStorage.getItem("email");
+    const checkTokenExpiry = () => {
 
-    if (token) {
+        const token = localStorage.getItem("token");
+        const email = localStorage.getItem("email");
+
+        if (!token) {
+            logout();
+            return;
+        }
 
         try {
 
@@ -38,7 +43,13 @@ export const AuthProvider = ({children}) =>{
 
             logout();
         }
-    }
+    };
+
+    checkTokenExpiry();
+
+    const interval = setInterval(checkTokenExpiry, 1000*60);
+
+    return () => clearInterval(interval);
 
 }, []);
 
